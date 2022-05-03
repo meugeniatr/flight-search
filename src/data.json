@@ -38,7 +38,7 @@
     }
   ],
   "included": {
-    "airlines/AF": {
+    "/airlines/AF": {
       "name": "Air France"
     },
     "/airlines/LH": {

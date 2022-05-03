@@ -1,0 +1,18 @@
+{
+  "flightCard": {
+    "duration": "Duration",
+    "services": "Services",
+    "details": "Voir détails du vol"
+  },
+  "searchForm": {
+    "flightType": "Voyage",
+    "type": "Aller simple",
+    "departureDate": "Date de sortie *",
+    "ariaLabelledbyOrigin": "Choississez origin",
+    "ariaLabelledbyDestination": "Choississez destination",
+    "from": "Départ de *",
+    "to": "Arrivée à *",
+    "continue": "Continuer",
+    "searchFlight": "Chercher vols"
+  }
+}

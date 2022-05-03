@@ -6,14 +6,13 @@ import { StyledLabel } from './TextInputStyles';
 
 interface ITextInput {
   data: any[];
-  placeholder: string;
   ariaLabelledby: string;
   handleChange: (event: any) => void;
   label: string;
 }
 const customStyles = {
   control: (_: any, state: any) => ({
-    width: 325,
+    width: 200,
     borderBottom: state.isFocused ? `1px solid ${COLORS.primary}` : `1px solid ${COLORS.transparentGray75}`,
     display: 'flex',
     minHeight: 38,
@@ -24,7 +23,7 @@ const customStyles = {
   }),
 };
 
-const TextInput: FC<ITextInput> = ({ data, placeholder, ariaLabelledby, handleChange, label }): JSX.Element => (
+const TextInput: FC<ITextInput> = ({ data, ariaLabelledby, handleChange, label }): JSX.Element => (
   <StyledLabel htmlFor={label}>
     {label}
     <Select
@@ -32,9 +31,8 @@ const TextInput: FC<ITextInput> = ({ data, placeholder, ariaLabelledby, handleCh
       aria-labelledby={ariaLabelledby}
       closeMenuOnSelect
       isSearchable
-      onBlur={handleChange}
+      onChange={handleChange}
       options={data}
-      placeholder={placeholder}
       styles={customStyles}
       isClearable
     />

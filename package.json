@@ -42,10 +42,12 @@
     ]
   },
   "devDependencies": {
+    "@types/i18next-browser-languagedetector": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "eslint": "^8.14.0",
     "eslint-config-react-app": "^7.0.1",
+    "i18next-browser-languagedetector": "^6.1.4",
     "prettier": "2.6.2",
     "react-select": "^5.3.1"
   }

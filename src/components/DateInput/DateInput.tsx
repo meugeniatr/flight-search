@@ -4,20 +4,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 interface IDatePicker {
   startDate: Date | null;
-  endDate: Date | null;
   onChange: (update: any) => void;
 }
 
-const DateInput: FC<IDatePicker> = ({ startDate, endDate, onChange }): ReactElement<any, any> => (
-  <DatePicker
-    selected={startDate}
-    onChange={onChange}
-    startDate={startDate}
-    endDate={endDate}
-    selectsRange
-    popperPlacement="bottom"
-    isClearable
-  />
+const DateInput: FC<IDatePicker> = ({ startDate, onChange }): ReactElement<any, any> => (
+  <DatePicker selected={startDate} onChange={onChange} startDate={startDate} popperPlacement="bottom" isClearable />
 );
 
 export default DateInput;

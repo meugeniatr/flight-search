@@ -29,7 +29,7 @@ const SIZES: TSizes = {
 
 interface IButton {
   variant: 'fill' | 'ghost'; // This can be evolved in different variants & sizes
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   size: 'large' | 'medium' | 'small';
   className?: string;
   children: any;
@@ -41,13 +41,7 @@ interface IButton {
  * @param {className} className override style.
  * @returns {Button} JSX.Element.
  */
-const Button: FC<IButton> = ({
-  variant = 'fill',
-  onClick,
-  size,
-  className,
-  children,
-}): JSX.Element => {
+const Button: FC<IButton> = ({ variant = 'fill', onClick, size, className, children }): JSX.Element => {
   const styles = SIZES[`${size}`];
 
   let Component;

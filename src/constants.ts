@@ -14,6 +14,7 @@ const COLORS = {
   primary: 'hsl(240deg 100% 60%)',
   primaryLight: 'hsl(235deg 100% 62%)',
   white: 'hsl(0deg 0% 100%)',
+  lightBackground: 'hsla(0, 0%, 96%, 0.8)',
   offwhite: 'hsl(235deg 85% 97%)',
   gray: 'hsl(240deg 10% 50%)',
   transparentGray15: 'hsl(240deg 10% 50% / 0.15)',
@@ -21,4 +22,10 @@ const COLORS = {
   black: 'hsl(0deg 0% 0%)',
 };
 
-export { BREAKPOINTS, QUERIES, COLORS };
+const FONTSIZE = {
+  small: `${12 / 16}rem`,
+  normal: `${16 / 16}rem`,
+  title2: `${18 / 16}rem`,
+};
+
+export { BREAKPOINTS, QUERIES, COLORS, FONTSIZE };

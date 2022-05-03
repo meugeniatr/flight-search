@@ -1,3 +1,4 @@
+import { COLORS } from '../constants';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
@@ -23,6 +24,7 @@ html, body {
 body {
   line-height: calc(1em + 0.5rem);
   -webkit-font-smoothing: antialiased;
+  background-color: ${COLORS.lightBackground}
 }
 
 main, header, footer {
