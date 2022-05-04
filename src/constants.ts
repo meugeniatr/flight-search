@@ -15,10 +15,10 @@ const COLORS = {
   primaryLight: 'hsl(235deg 100% 62%)',
   white: 'hsl(0deg 0% 100%)',
   lightBackground: 'hsla(0, 0%, 96%, 0.8)',
-  offwhite: 'hsl(235deg 85% 97%)',
   gray: 'hsl(240deg 10% 50%)',
   transparentGray15: 'hsl(240deg 10% 50% / 0.15)',
   transparentGray75: 'hsl(240deg 10% 50% / 0.75)',
+  transparentPrimary: 'hsl(240deg 100% 60% / 0.15)',
   black: 'hsl(0deg 0% 0%)',
 };
 

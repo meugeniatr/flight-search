@@ -12,10 +12,3 @@ const DateInput: FC<IDatePicker> = ({ startDate, onChange }): ReactElement<any, 
 );
 
 export default DateInput;
-// const [startDate, setStartDate] = useState(new Date());
-// const [endDate, setEndDate] = useState(null);
-// const onChange = (dates) => {
-//   const [start, end] = dates;
-//   setStartDate(start);
-//   setEndDate(end);
-// };

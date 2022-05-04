@@ -8,6 +8,7 @@ const ButtonBase = styled.button`
   border-radius: var(--borderRadius);
   border: none;
   border: 2px solid transparent;
+  cursor: pointer;
 
   &:focus {
     outline-color: ${COLORS.primary};
@@ -26,14 +27,14 @@ const FillButton = styled(ButtonBase)`
 
 const GhostButton = styled(ButtonBase)`
   color: ${COLORS.gray};
-  background-color: transparent;
+  background: ${COLORS.transparentGray15};
 
   &:focus {
     outline-color: ${COLORS.gray};
   }
 
   &:hover {
-    background: ${COLORS.transparentGray15};
+    background-color: ${COLORS.transparentGray75};
     color: ${COLORS.black};
   }
 `;

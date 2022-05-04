@@ -1,5 +1,19 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { BREAKPOINTS, COLORS, FONTSIZE } from '../../constants';
+
+const growDown = keyframes`
+  0% {
+    transform: rotateX(-90deg);
+  }
+
+  70% {
+    transform: rotateX(20deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
+`;
 
 const FligthWrapper = styled.div`
   box-shadow: 0 0.1rem 0.4rem 0 ${COLORS.transparentGray75};
@@ -109,6 +123,22 @@ const LabelStyle = styled.span`
   color: ${COLORS.transparentGray75};
 `;
 
+const DetailsWrapper = styled.div<{ animated: boolean }>`
+  max-width: ${BREAKPOINTS.laptopMin}px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  background: ${COLORS.transparentPrimary};
+  box-shadow: 0 0.1rem 0.4rem 0 ${COLORS.transparentGray75};
+  display: ${(p) => (p.animated ? 'block' : 'none')};
+  animation: ${growDown} 200ms ease-in-out forwards;
+
+  p {
+    font-size: ${FONTSIZE.title2};
+    text-align: center;
+    font-weight: bold;
+  }
+`;
+
 export {
   FligthWrapper,
   Itinerary,
@@ -119,4 +149,5 @@ export {
   Actions,
   FlightNumber,
   LabelStyle,
+  DetailsWrapper,
 };

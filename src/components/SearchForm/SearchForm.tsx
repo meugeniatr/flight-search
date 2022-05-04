@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { getAirports, getFlights } from 'helpers/data';
+
 import DateInput from '../DateInput/DateInput';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
@@ -14,7 +16,6 @@ import {
   StyledFlightType,
   LabelStyle,
 } from './SearchFormStyles';
-import { getAirports, getFlights } from 'helpers/data';
 
 interface ISearchForm {}
 
@@ -25,6 +26,7 @@ type TPoints = {
 
 const SearchForm: FC<ISearchForm> = () => {
   const { t } = useTranslation('searchForm');
+
   // States
   const [points, setPoints] = useState<TPoints>({
     origin: '',
@@ -32,23 +34,29 @@ const SearchForm: FC<ISearchForm> = () => {
   });
   const [openGrid, setOpenGrid] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
+
   const airports = getAirports();
 
   // TODO
   // Be able to remove airport from list depending on to and from since we can land on the same airport
   const selectData = [];
-
   for (const [key, value] of Object.entries(airports)) {
     selectData.push({ value: key, label: value.name });
   }
 
   // Functions
   const handleChange = (item: any, id: string): void => {
+    setOpenGrid(false);
     if (item) {
       id === 'from'
         ? setPoints((prev) => ({ ...prev, origin: item.value }))
         : setPoints((prev) => ({ ...prev, destination: item.value }));
     }
+  };
+
+  const onContinueButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpenGrid(true);
   };
 
   return (
@@ -81,22 +89,16 @@ const SearchForm: FC<ISearchForm> = () => {
                 <DateInput
                   startDate={startDate}
                   onChange={(update: any) => {
+                    setOpenGrid(false);
                     setStartDate(update);
                   }}
                 />
               </div>
               <div>
-                {/* <Button variant="fill" size="large" onClick={(): void => setOpenGrid(!openGrid)}>
-                {!openGrid ? t('continue') : t('searchFlight')}
-              </Button> */}
                 <Button
-                  variant="fill"
+                  variant={points.destination === '' || points.origin === '' || !startDate ? 'ghost' : 'fill'}
                   size="large"
-                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-                    setOpenGrid(true);
-                    event.preventDefault();
-                    console.log(getFlights(points.origin, points.destination));
-                  }}
+                  onClick={(e): void => onContinueButton(e)}
                 >
                   {t('continue')}
                 </Button>
@@ -119,6 +121,7 @@ const SearchForm: FC<ISearchForm> = () => {
             flightNumber={element.flightNumber}
             price={element.price}
             key={element.id}
+            currencyCode={element.currencyCode}
           />
         ))}
     </>
