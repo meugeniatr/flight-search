@@ -1,0 +1,18 @@
+{
+  "flightCard": {
+    "duration": "Duration",
+    "services": "Services",
+    "details": "See details"
+  },
+  "searchForm": {
+    "flightType": "Type",
+    "type": "One way",
+    "departureDate": "Departure date *",
+    "ariaLabelledbyOrigin": "Choose origin",
+    "ariaLabelledbyDestination": "Choose destination",
+    "from": "From*",
+    "to": "To*",
+    "continue": "Continue",
+    "searchFlight": "Search flights"
+  }
+}
