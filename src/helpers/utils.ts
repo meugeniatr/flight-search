@@ -1,4 +1,3 @@
-import { IFlightCard } from 'components/FlightCard/FlightCard';
 import data from 'data.json';
 
 type Airport = {
@@ -21,6 +20,19 @@ export type Flight = {
   takeoff: string;
 };
 
+export type FullFlight = {
+  airline: Airport;
+  arrivalAirport: Airport;
+  currencyCode: string;
+  departureAirport: Airport;
+  duration: number;
+  flightNumber: string;
+  id: string;
+  landing: string;
+  price: number;
+  takeoff: string;
+};
+
 const getAirports = (): Airports => {
   const airports = {};
   for (const [key, value] of Object.entries(data.included)) {
@@ -31,16 +43,18 @@ const getAirports = (): Airports => {
   return airports;
 };
 
-const getFlights = (departureAirport: string, arrivalAirport: string): Flight[] => {
+const getFlights = (departureAirport: string, arrivalAirport: string): FullFlight[] => {
   return data.data
     .filter((flight: Flight) => {
       return flight.departureAirport === departureAirport && flight.arrivalAirport === arrivalAirport;
     })
-    .map(({ ...flight }) => {
-      flight.arrivalAirport = data.included[flight.arrivalAirport];
-      flight.departureAirport = data.included[flight.departureAirport];
-      flight.airline = data.included[flight.airline];
-      return flight;
+    .map((flight): FullFlight => {
+      return {
+        ...flight,
+        arrivalAirport: data.included[flight.arrivalAirport],
+        departureAirport: data.included[flight.departureAirport],
+        airline: data.included[flight.airline],
+      };
     });
 };
 

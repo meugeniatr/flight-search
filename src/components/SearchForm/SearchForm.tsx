@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Airports, Flight, getAirports, getFlights } from 'helpers/utils';
+import { Airports, FullFlight, getAirports, getFlights } from 'helpers/utils';
 
 import DateInput from '../DateInput/DateInput';
 import Button from '../Button/Button';
@@ -106,21 +106,8 @@ const SearchForm: FC<ISearchForm> = () => {
         </StyledContent>
       </StyledSection>
       {openGrid &&
-        getFlights(points.origin, points.destination).map((element: any) => (
-          <FlightCard
-            airline={element.airline.name}
-            arrivalAirport={element.arrivalAirport.name}
-            arrivalCity={element.arrivalAirport.city}
-            currencyCode={element.currencyCode}
-            departureAirport={element.departureAirport.name}
-            departureCity={element.departureAirport.city}
-            duration={element.duration}
-            flightNumber={element.flightNumber}
-            key={element.id}
-            landing={element.landing}
-            price={element.price}
-            takeoff={element.takeoff}
-          />
+        getFlights(points.origin, points.destination).map((element: FullFlight) => (
+          <FlightCard flight={element} key={element.id} />
         ))}
     </>
   );

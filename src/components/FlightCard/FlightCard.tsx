@@ -5,7 +5,7 @@ import { RestaurantIcon, WifiIcon } from 'icons';
 
 import Button from 'components/Button/Button';
 
-import { splitTime } from 'helpers/utils';
+import { FullFlight, splitTime } from 'helpers/utils';
 
 import {
   FligthWrapper,
@@ -21,32 +21,10 @@ import {
 } from './FlightCardStyles';
 
 export interface IFlightCard {
-  airline: string;
-  arrivalAirport: string;
-  arrivalCity: string;
-  currencyCode: string;
-  departureAirport: string;
-  departureCity: string;
-  duration: number;
-  flightNumber: string;
-  landing: string;
-  price: number;
-  takeoff: string;
+  flight: FullFlight;
 }
 
-const FlightCard: FC<IFlightCard> = ({
-  airline,
-  arrivalAirport,
-  arrivalCity,
-  currencyCode,
-  departureAirport,
-  departureCity,
-  duration,
-  flightNumber,
-  landing,
-  price,
-  takeoff,
-}) => {
+const FlightCard: FC<IFlightCard> = ({ flight }) => {
   // Hooks
   const { t } = useTranslation(['flightCard']);
 
@@ -55,7 +33,7 @@ const FlightCard: FC<IFlightCard> = ({
 
   // Functions
   const getFormattedDuration = (): string => {
-    const formattedDuration: { Days: number; Hours: number; Minutes: number } = splitTime(duration);
+    const formattedDuration: { Days: number; Hours: number; Minutes: number } = splitTime(flight.duration);
     const dDisplay: string = formattedDuration.Days > 0 ? `${formattedDuration.Days}d` : '';
     const hDisplay: string = formattedDuration.Hours > 0 ? `${formattedDuration.Hours}h` : '';
     const mDisplay: string = formattedDuration.Minutes > 0 ? `${formattedDuration.Minutes}m` : '';
@@ -68,22 +46,26 @@ const FlightCard: FC<IFlightCard> = ({
         <Itinerary>
           <ItineraryTime>
             <span>
-              <time>{takeoff}</time> - <time>{landing}</time>
+              <time>{flight.takeoff}</time> - <time>{flight.landing}</time>
             </span>
           </ItineraryTime>
           <ItineraryLocation>
             <ol>
               <li>
-                <strong>{departureCity}</strong> ({departureAirport})
+                <>
+                  <strong>{flight.departureAirport.city}</strong> ({flight.departureAirport.name})
+                </>
               </li>
               <li>
-                <strong>{arrivalCity}</strong> ({arrivalAirport})
+                <>
+                  <strong>{flight.arrivalAirport.city}</strong> ({flight.arrivalAirport.name})
+                </>
               </li>
             </ol>
           </ItineraryLocation>
           <FlightNumber>
-            <LabelStyle>{airline}</LabelStyle>
-            {flightNumber}
+            <LabelStyle>{flight.airline.name}</LabelStyle>
+            {flight.flightNumber}
           </FlightNumber>
           <ItineraryDuration>
             <LabelStyle>{t('duration')}</LabelStyle>
@@ -104,7 +86,7 @@ const FlightCard: FC<IFlightCard> = ({
         </Actions>
       </FligthWrapper>
       <DetailsWrapper animated={showPrice}>
-        <p>{`${price} ${currencyCode}`}</p>
+        <p>{`${flight.price} ${flight.currencyCode}`}</p>
       </DetailsWrapper>
     </>
   );
