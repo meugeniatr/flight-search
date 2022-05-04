@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getAirports, getFlights } from 'helpers/data';
+import { Airports, Flight, getAirports, getFlights } from 'helpers/utils';
 
 import DateInput from '../DateInput/DateInput';
 import Button from '../Button/Button';
@@ -35,10 +35,8 @@ const SearchForm: FC<ISearchForm> = () => {
   const [openGrid, setOpenGrid] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
 
-  const airports = getAirports();
+  const airports: Airports = getAirports();
 
-  // TODO
-  // Be able to remove airport from list depending on to and from since we can land on the same airport
   const selectData = [];
   for (const [key, value] of Object.entries(airports)) {
     selectData.push({ value: key, label: value.name });
@@ -110,18 +108,18 @@ const SearchForm: FC<ISearchForm> = () => {
       {openGrid &&
         getFlights(points.origin, points.destination).map((element: any) => (
           <FlightCard
-            takeoff={element.takeoff}
-            landing={element.landing}
-            duration={element.duration}
-            departureAirport={element.departureAirport.name}
-            arrivalAirport={element.arrivalAirport.name}
-            departureCity={element.departureAirport.city}
-            arrivalCity={element.arrivalAirport.city}
             airline={element.airline.name}
-            flightNumber={element.flightNumber}
-            price={element.price}
-            key={element.id}
+            arrivalAirport={element.arrivalAirport.name}
+            arrivalCity={element.arrivalAirport.city}
             currencyCode={element.currencyCode}
+            departureAirport={element.departureAirport.name}
+            departureCity={element.departureAirport.city}
+            duration={element.duration}
+            flightNumber={element.flightNumber}
+            key={element.id}
+            landing={element.landing}
+            price={element.price}
+            takeoff={element.takeoff}
           />
         ))}
     </>

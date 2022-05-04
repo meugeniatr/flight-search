@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { RestaurantIcon, WifiIcon } from 'icons';
 
 import Button from 'components/Button/Button';
+
+import { splitTime } from 'helpers/utils';
 
 import {
   FligthWrapper,
@@ -17,37 +19,49 @@ import {
   LabelStyle,
   DetailsWrapper,
 } from './FlightCardStyles';
-import { useState } from 'react';
 
-interface IFlightsGrid {
-  takeoff: string;
-  landing: string;
-  duration: number;
-  departureAirport: string;
-  arrivalAirport: string;
-  departureCity: string;
-  arrivalCity: string;
+export interface IFlightCard {
   airline: string;
-  flightNumber: string;
-  price: number;
+  arrivalAirport: string;
+  arrivalCity: string;
   currencyCode: string;
+  departureAirport: string;
+  departureCity: string;
+  duration: number;
+  flightNumber: string;
+  landing: string;
+  price: number;
+  takeoff: string;
 }
 
-const FlightCard: FC<IFlightsGrid> = ({
-  takeoff,
-  landing,
-  duration,
-  departureAirport,
-  arrivalAirport,
-  departureCity,
-  arrivalCity,
+const FlightCard: FC<IFlightCard> = ({
   airline,
-  flightNumber,
-  price,
+  arrivalAirport,
+  arrivalCity,
   currencyCode,
+  departureAirport,
+  departureCity,
+  duration,
+  flightNumber,
+  landing,
+  price,
+  takeoff,
 }) => {
+  // Hooks
   const { t } = useTranslation(['flightCard']);
+
+  // States
   const [showPrice, setShowPrice] = useState<boolean>(false);
+
+  // Functions
+  const getFormattedDuration = (): string => {
+    const formattedDuration: { Days: number; Hours: number; Minutes: number } = splitTime(duration);
+    const dDisplay: string = formattedDuration.Days > 0 ? `${formattedDuration.Days}d` : '';
+    const hDisplay: string = formattedDuration.Hours > 0 ? `${formattedDuration.Hours}h` : '';
+    const mDisplay: string = formattedDuration.Minutes > 0 ? `${formattedDuration.Minutes}m` : '';
+    return dDisplay + hDisplay + mDisplay;
+  };
+
   return (
     <>
       <FligthWrapper>
@@ -73,7 +87,7 @@ const FlightCard: FC<IFlightsGrid> = ({
           </FlightNumber>
           <ItineraryDuration>
             <LabelStyle>{t('duration')}</LabelStyle>
-            {duration}
+            {getFormattedDuration()}
           </ItineraryDuration>
           <Services>
             <LabelStyle>{t('services')}</LabelStyle>
@@ -85,7 +99,6 @@ const FlightCard: FC<IFlightsGrid> = ({
         </Itinerary>
         <Actions>
           <Button variant="fill" size="small" onClick={() => setShowPrice(!showPrice)}>
-            {/* <Button variant="fill" size="small" onClick={() => console.log(price)}> */}
             {t('details')}
           </Button>
         </Actions>
