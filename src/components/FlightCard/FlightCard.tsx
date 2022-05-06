@@ -5,7 +5,9 @@ import { RestaurantIcon, WifiIcon } from 'icons';
 
 import Button from 'components/Button/Button';
 
-import { FullFlight, splitTime } from 'helpers/utils';
+import { IFullFlight } from 'hooks/useFlights';
+
+import { splitTime } from 'helpers/utils';
 
 import {
   FligthWrapper,
@@ -21,7 +23,7 @@ import {
 } from './FlightCardStyles';
 
 export interface IFlightCard {
-  flight: FullFlight;
+  flight: IFullFlight;
 }
 
 const FlightCard: FC<IFlightCard> = ({ flight }) => {
