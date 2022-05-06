@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { RestaurantIcon, WifiIcon } from 'icons';
@@ -34,13 +34,13 @@ const FlightCard: FC<IFlightCard> = ({ flight }) => {
   const [showPrice, setShowPrice] = useState<boolean>(false);
 
   // Functions
-  const getFormattedDuration = (): string => {
+  const getFormattedDuration = useMemo((): string => {
     const formattedDuration: { Days: number; Hours: number; Minutes: number } = splitTime(flight.duration);
     const dDisplay: string = formattedDuration.Days > 0 ? `${formattedDuration.Days}d` : '';
     const hDisplay: string = formattedDuration.Hours > 0 ? `${formattedDuration.Hours}h` : '';
     const mDisplay: string = formattedDuration.Minutes > 0 ? `${formattedDuration.Minutes}m` : '';
     return dDisplay + hDisplay + mDisplay;
-  };
+  }, [flight.duration]);
 
   return (
     <>
@@ -71,7 +71,7 @@ const FlightCard: FC<IFlightCard> = ({ flight }) => {
           </FlightNumber>
           <ItineraryDuration>
             <LabelStyle>{t('duration')}</LabelStyle>
-            {getFormattedDuration()}
+            {getFormattedDuration}
           </ItineraryDuration>
           <Services>
             <LabelStyle>{t('services')}</LabelStyle>
