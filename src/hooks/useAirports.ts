@@ -7,7 +7,10 @@ export interface IAirport {
 }
 
 type Airports = Record<string, IAirport>;
-
+/**
+ * Custom hook that allows to return airports
+ * @returns loadingAirports: boolean, aiports: IAirport (object including city, name)
+ */
 const useAirports = () => {
   const [result, setResult] = useState<{ loadingAirports: boolean; airports: Airports }>({
     loadingAirports: true,

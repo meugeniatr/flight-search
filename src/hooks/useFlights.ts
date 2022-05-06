@@ -29,7 +29,11 @@ type Flight = {
   price: number;
   takeoff: string;
 };
-
+/**
+ * Custom hook that allows to return flights that match the departure airport and arrival airport
+ * Incorporates the name of the airline, city and name of the city
+ * @returns loadingFlights: boolean, flights: IFullFlight
+ */
 const useFlights = (departureAirport: string, arrivalAirport: string) => {
   const [result, setResult] = useState<{ loadingFlights: boolean; flights: IFullFlight[] }>({
     loadingFlights: true,
