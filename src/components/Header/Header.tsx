@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { FranceIcon, UkIcon } from 'icons';
 
-import { StyledHeader, Container } from './HeaderStyles';
+import { StyledHeader, Container, LangOption } from './HeaderStyles';
 
 const Header: FC = () => {
   const { i18n } = useTranslation();
@@ -13,12 +14,12 @@ const Header: FC = () => {
   return (
     <StyledHeader>
       <Container>
-        <button onClick={changeLanguage} value="en">
-          English
-        </button>
-        <button onClick={changeLanguage} value="fr">
-          Français
-        </button>
+        <LangOption onClick={changeLanguage} value="en">
+          <UkIcon />
+        </LangOption>
+        <LangOption onClick={changeLanguage} value="fr">
+          <FranceIcon />
+        </LangOption>
       </Container>
     </StyledHeader>
   );
