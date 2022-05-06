@@ -15,4 +15,15 @@ const Container = styled.div`
   height: 40px;
 `;
 
-export { StyledHeader, Container };
+const LangOption = styled.button`
+  border: none;
+  cursor: pointer;
+  background: transparent;
+
+  margin: 0 4px;
+  svg {
+    width: 24px;
+  }
+`;
+
+export { StyledHeader, Container, LangOption };
