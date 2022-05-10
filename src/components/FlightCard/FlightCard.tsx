@@ -34,7 +34,7 @@ const FlightCard: FC<IFlightCard> = ({ flight }) => {
   const [showPrice, setShowPrice] = useState<boolean>(false);
 
   // Functions
-  const getFormattedDuration = useMemo((): string => {
+  const formattedDuration = useMemo((): string => {
     const formattedDuration: { Days: number; Hours: number; Minutes: number } = splitTime(flight.duration);
     const dDisplay: string = formattedDuration.Days > 0 ? `${formattedDuration.Days}d` : '';
     const hDisplay: string = formattedDuration.Hours > 0 ? `${formattedDuration.Hours}h` : '';
@@ -71,7 +71,7 @@ const FlightCard: FC<IFlightCard> = ({ flight }) => {
           </FlightNumber>
           <ItineraryDuration>
             <LabelStyle>{t('duration')}</LabelStyle>
-            {getFormattedDuration}
+            {formattedDuration}
           </ItineraryDuration>
           <Services>
             <LabelStyle>{t('services')}</LabelStyle>
