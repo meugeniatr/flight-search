@@ -23,6 +23,7 @@ const LangOption = styled.button`
   margin: 0 4px;
   svg {
     width: 24px;
+    pointer-events: none;
   }
 `;
 
