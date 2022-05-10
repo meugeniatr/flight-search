@@ -18,14 +18,12 @@ import useAirports from 'hooks/useAirports';
 import useFlights, { IFullFlight } from 'hooks/useFlights';
 import Spinner from 'components/Spinner/Spinner';
 
-interface ISearchForm {}
-
 type TPoints = {
   origin: string;
   destination: string;
 };
 
-const SearchForm: FC<ISearchForm> = () => {
+const SearchForm: FC = () => {
   // States
   const [points, setPoints] = useState<TPoints>({
     origin: '',
