@@ -1,8 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Airports, FullFlight, getAirports, getFlights } from 'helpers/utils';
-
 import DateInput from '../DateInput/DateInput';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
@@ -16,6 +14,9 @@ import {
   StyledFlightType,
   LabelStyle,
 } from './SearchFormStyles';
+import useAirports from 'hooks/useAirports';
+import useFlights, { IFullFlight } from 'hooks/useFlights';
+import Spinner from 'components/Spinner/Spinner';
 
 interface ISearchForm {}
 
@@ -25,8 +26,6 @@ type TPoints = {
 };
 
 const SearchForm: FC<ISearchForm> = () => {
-  const { t } = useTranslation('searchForm');
-
   // States
   const [points, setPoints] = useState<TPoints>({
     origin: '',
@@ -35,7 +34,10 @@ const SearchForm: FC<ISearchForm> = () => {
   const [openGrid, setOpenGrid] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
 
-  const airports: Airports = getAirports();
+  // Hooks
+  const { t } = useTranslation('searchForm');
+  const { loadingAirports, airports } = useAirports();
+  const { loadingFlights, flights } = useFlights(points.origin, points.destination);
 
   const selectData = [];
   for (const [key, value] of Object.entries(airports)) {
@@ -57,6 +59,12 @@ const SearchForm: FC<ISearchForm> = () => {
     setOpenGrid(true);
   };
 
+  const FlightCards: JSX.Element[] | JSX.Element = loadingFlights ? (
+    <Spinner />
+  ) : (
+    flights.map((element: IFullFlight) => <FlightCard flight={element} key={element.id} />)
+  );
+
   return (
     <>
       <StyledSection>
@@ -69,19 +77,27 @@ const SearchForm: FC<ISearchForm> = () => {
                   <p>{t('type')}</p>
                 </StyledFlightType>
               </FlightTypeWrapper>
-              <TextInput
-                data={selectData}
-                ariaLabelledby={t('ariaLabelledbyOrigin')}
-                handleChange={(e) => handleChange(e, 'from')}
-                label={t('from')}
-              />
+              {loadingAirports ? (
+                <Spinner />
+              ) : (
+                <TextInput
+                  data={selectData}
+                  ariaLabelledby={t('ariaLabelledbyOrigin')}
+                  handleChange={(e) => handleChange(e, 'from')}
+                  label={t('from')}
+                />
+              )}
               <span>{'\u2192'}</span>
-              <TextInput
-                data={selectData}
-                ariaLabelledby={t('ariaLabelledbyDestination')}
-                handleChange={(e) => handleChange(e, 'to')}
-                label={t('to')}
-              />
+              {loadingAirports ? (
+                <Spinner />
+              ) : (
+                <TextInput
+                  data={selectData}
+                  ariaLabelledby={t('ariaLabelledbyDestination')}
+                  handleChange={(e) => handleChange(e, 'to')}
+                  label={t('to')}
+                />
+              )}
               <div>
                 <LabelStyle>{t('departureDate')}</LabelStyle>
                 <DateInput
@@ -105,10 +121,7 @@ const SearchForm: FC<ISearchForm> = () => {
           </form>
         </StyledContent>
       </StyledSection>
-      {openGrid &&
-        getFlights(points.origin, points.destination).map((element: FullFlight) => (
-          <FlightCard flight={element} key={element.id} />
-        ))}
+      {openGrid && FlightCards}
     </>
   );
 };
